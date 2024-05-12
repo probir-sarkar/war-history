@@ -1,6 +1,7 @@
 ---
 import { allyears } from "../utils/functions.js";
 import { isYearInRange, getBattlesByYear } from "../utils/test.ts";
+import Layout from "../layouts/Layout.astro";
 import WarCard from "../components/WarCard.astro";
 import type { Battle } from "../utils/test.ts";
 // import Card from '../components/Card.astro';
@@ -16,22 +17,16 @@ const { year } = Astro.props;
 const data = getBattlesByYear(year);
 ---
 
-<html>
-  <head>
-    <title> List of battles in {year}</title>
-  </head>
-  <body class="max-w-2xl px-6 mx-auto my-10">
-    <!-- for home -->
-    <a href="/" class="text-blue-500">&#129056; Back to home</a>
-    <h1 class="text-2xl font-medium pb-4 mb-10 border-b">
-      List of battles in {year}
-    </h1>
-    <ul>
-      {
-        data.map((war, index) => (
-         <WarCard index={index} war={war} />
-        ))
-      }
-    </ul>
-  </body>
-</html>
+<Layout
+  title={`List of battles in ${year}: War of the Worlds`}
+  description={`Explore a comprehensive list of military conflicts and battles that took place in the year ${year}, detailing participants, locations, and outcomes.`}
+/>
+<main>
+  <a href="/" class="text-blue-500">&#129056; Back to home</a>
+  <h1 class="text-2xl font-medium pb-4 mb-10 border-b">
+    List of battles in {year}
+  </h1>
+  <ul>
+    {data.map((war, index) => <WarCard index={index} war={war} />)}
+  </ul>
+</main>
