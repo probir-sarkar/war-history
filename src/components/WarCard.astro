@@ -1,0 +1,37 @@
+---
+import type { Battle } from "../utils/test";
+interface Props {
+  war: Battle;
+  index: number;
+}
+
+const { war, index } = Astro.props;
+const { Battle, War, Winner, Participants, Country, Loser, Theatre } = war;
+const parsedParticipants = () => {
+  try {
+	console.log(typeof Participants);
+	
+    return JSON.parse(Participants);
+  } catch (e) {
+    return Participants;
+  }
+};
+const participants = Array.isArray(parsedParticipants) ? parsedParticipants.join(", ") : parsedParticipants;
+const newIndex = index + 1 < 10 ? `0${index + 1}` : index + 1;
+---
+
+<li class="my-4 flex gap-4">
+  <p class="text-2xl font-bold">{newIndex}.</p>
+  <div class="">
+    <h2 class="text-xl font-semibold">Battle of {war.Battle}</h2>
+    <!-- country of war -->
+    <p class="text-gray-500">Country: {Country}</p>
+    <p class="text-gray-500">War: {War}</p>
+    <p class="text-gray-500">
+      Participants: {participants}
+    </p>
+    <p class="text-gray-500">Winner: {Winner}</p>
+    <p class="text-gray-500">Loser: {Loser}</p>
+    <p class="text-gray-500">Theatre of War: {Theatre}</p>
+  </div>
+</li>
