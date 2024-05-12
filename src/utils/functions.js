@@ -18,11 +18,11 @@ function getCentury(year) {
   if (year < 0) {
     const start = Math.ceil(year / 100) * 100 - 99;
     const end = start + 99;
-    return `${start}-${end} BC`;
+    return `${start}to${end}`;
   } else {
     const centuryStart = Math.floor(year / 100) * 100 + 1;
     const centuryEnd = centuryStart + 99;
-    return `${centuryStart}-${centuryEnd}`;
+    return `${centuryStart}to${centuryEnd}`;
   }
 }
 
