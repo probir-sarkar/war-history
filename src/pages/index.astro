@@ -20,7 +20,7 @@ description="A timeline of the world's most significant conflicts, from the earl
       {
         Object.keys(groupedYears)
           .sort((a, b) => Number(b.split("to")[0]) - Number(a.split("to")[0]))
-          .map((century, index) => (
+          .map((century) => (
             <>
               <div class="border-b">
                 <h2 class="text-xl font-bold">
@@ -29,7 +29,7 @@ description="A timeline of the world's most significant conflicts, from the earl
                 </h2>
               </div>
               <ul class="flex gap-1 flex-wrap">
-                {groupedYears[century].sort().map((year, index) => (
+                {groupedYears[century].sort().map((year) => (
                   <li class="p-1">
                     <a class="transform transition-all duration-1000 ease-out rounded-md p-2 text-blue-600	 hover:bg-gray-100 hover:text-blue-500	" href={`/${year}`}>
                       {Math.sign(year) === -1 ? Math.abs(year) + " BC" : year}
