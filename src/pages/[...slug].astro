@@ -26,7 +26,7 @@ const data = getBattlesByYear(year);
   <h1 class="text-2xl font-medium pb-4 mb-10 border-b">
     List of battles in {year}
   </h1>
-  <ul>
+  <ul class="grid md:grid-cols-2 gap-4">
     {data.map((war, index) => <WarCard index={index} war={war} />)}
   </ul>
 </main>

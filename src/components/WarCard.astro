@@ -1,5 +1,14 @@
 ---
 import type { Battle } from "../utils/test";
+import { Icon } from 'astro-icon/components'
+import WarIcon from "./icons/WarIcon.astro";
+import IcOutlinePlace from "./icons/IcOutlinePlace.astro";
+import IcOutlinePeople from "./icons/IcOutlinePeople.astro";
+import TrophyIcon from "./icons/TrophyIcon.astro";
+import LossIcon from "./icons/LossIcon.astro";
+import TheatreIcon from "./icons/TheatreIcon.astro";
+import FlagIcon from "./icons/FlagIcon.astro";
+
 interface Props {
   war: Battle;
   index: number;
@@ -7,31 +16,31 @@ interface Props {
 
 const { war, index } = Astro.props;
 const { Battle, War, Winner, Participants, Country, Loser, Theatre } = war;
-const parsedParticipants = () => {
+const parsedParticipants = (Participants: string) => {
   try {
-	console.log(typeof Participants);
-	
-    return JSON.parse(Participants);
+    const cleanedString = Participants.replace(/'/g, '"');
+    return JSON.parse(cleanedString);
   } catch (e) {
     return Participants;
   }
 };
-const participants = Array.isArray(parsedParticipants) ? parsedParticipants.join(", ") : parsedParticipants;
+const participants = Array.isArray(parsedParticipants(Participants)) ? parsedParticipants(Participants).join(", ") : parsedParticipants(Participants);
+const formatWar = Array.isArray(parsedParticipants(War)) ? parsedParticipants(War).join(", ") : parsedParticipants(War);
 const newIndex = index + 1 < 10 ? `0${index + 1}` : index + 1;
 ---
 
-<li class="my-4 flex gap-4">
-  <p class="text-2xl font-bold">{newIndex}.</p>
-  <div class="">
-    <h2 class="text-xl font-semibold">Battle of {war.Battle}</h2>
+<li class="flex gap-4 p-4 border rounded-md border-gray-500 transform transition-transform duration-300 ease-in-out hover:bg-gray-50 hover:scale-105">
+  <p class="text-2xl font-bold  border-gray-200"> {newIndex}.</p>
+  <div class="space-y-1 ">
+    <h2 class="text-2xl font-semibold flex gap-2  mb-2"><FlagIcon  class="text-3xl"/> Battle of {war.Battle}</h2>
     <!-- country of war -->
-    <p class="text-gray-500">Country: {Country}</p>
-    <p class="text-gray-500">War: {War}</p>
-    <p class="text-gray-500">
-      Participants: {participants}
+    <p class="text-gray-800 flex gap-2  "><WarIcon class="flex-shrink-0 mt-1"  /> {formatWar}</p>
+    <p class="text-gray-800 flex gap-2"><IcOutlinePlace class="flex-shrink-0 mt-1"  /> {Country}</p>
+    <p class="text-gray-800 flex gap-2 ">
+     <IcOutlinePeople class="flex-shrink-0 mt-1" /> {participants ? participants :` ${Winner} , ${Loser}`}
     </p>
-    <p class="text-gray-500">Winner: {Winner}</p>
-    <p class="text-gray-500">Loser: {Loser}</p>
-    <p class="text-gray-500">Theatre of War: {Theatre}</p>
+    <p class="text-gray-800 flex gap-2 "><TrophyIcon class="flex-shrink-0 mt-1"  /> {Winner}</p>
+    <p class="text-gray-800 flex gap-2 "><LossIcon class="flex-shrink-0 mt-1"  /> {Loser}</p>
+    <p class="text-gray-800 flex gap-2 "><TheatreIcon class="flex-shrink-0 mt-1"  />{Theatre}</p>
   </div>
 </li>
